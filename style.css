@@ -370,6 +370,14 @@ body {
   animation: blink 1s step-start infinite;
 }
 
+.inline-suffix {
+  display: inline-block !important;
+  margin-left: 6px;         /* 답칸과 약간만 띄우기 */
+  font-size: 22px;
+  vertical-align: middle;
+}
+
+
 /* ---------- 반응형 ---------- */
 
 @media (max-width: 720px) {
@@ -535,3 +543,4 @@ body {
   height: 1px;
   /* iOS에서 완전 0px이면 무시되는 경우가 있어서 1px 유지 */
 }
+

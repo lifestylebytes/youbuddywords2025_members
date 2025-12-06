@@ -245,6 +245,20 @@ function checkAnswer() {
     return;
   }
 
+    // suffix가 ? . ! , 등 "문장부호 1글자"인 경우 → 답칸 옆에 붙이기
+  const isPunctuation =
+    q.suffix && /^[?.!,]$/.test(q.suffix.trim());
+
+    if (isPunctuation) {
+      suffixEl.classList.add("inline-suffix");
+    } else {
+      suffixEl.classList.remove("inline-suffix");
+    }
+
+    prefixEl.textContent = q.prefix || "";
+    suffixEl.textContent = q.suffix || "";
+
+
   const isCorrect =
     userWithSpace === correctWithSpace ||
     userNoSpace === correctNoSpace;
@@ -378,6 +392,20 @@ function applyChar(rawCh) {
   typedRaw += ch.toLowerCase();
   finished = false;
   renderSlots();
+
+ // ⭐⭐⭐ 모든 빈칸 채움 + 정답 자동 체크 ⭐⭐⭐
+  const typedNoSpace = normaliseWithoutSpace(typedRaw);
+  const answerNoSpace = normaliseWithoutSpace(currentAnswer);
+
+  // 모든 칸이 채워졌는지?
+  const filledAll = typedNoSpace.length === totalSlots;
+
+  if (filledAll && typedNoSpace === answerNoSpace) {
+    // 자동 정답 처리
+    setTimeout(() => {
+      checkAnswer();
+    }, 80); // 살짝 딜레이 주면 UX가 부드러움
+  }
 }
 
 // -------------------- 키보드 입력 --------------------
