@@ -38,12 +38,12 @@
     <!-- /.top-row -->
 
     <!-- 문장 + 타이핑 슬롯 -->
+        <!-- 문장 + 타이핑 슬롯 -->
     <div class="sentence-card">
       <div class="sentence-line">
         <span class="sentence-prefix" id="sentencePrefix"></span>
 
         <span class="answer-pill">
-          <!-- 각 글자를 “한 칸짜리 박스”로 렌더링할 컨테이너 -->
           <span class="answer-visual-inner" id="slotsContainer"></span>
         </span>
 
@@ -52,6 +52,18 @@
 
       <div class="meaning" id="meaning"></div>
     </div>
+
+    <!-- 🔒 모바일 키보드 호출용 숨은 인풋 -->
+    <input
+      type="text"
+      id="mobileInput"
+      class="mobile-input"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+    />
+
 
     <!-- 하단: 정답 보기 + 안내문 (같은 단계) -->
     <div class="bottom-row">

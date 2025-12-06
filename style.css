@@ -508,3 +508,12 @@ body {
   margin-bottom: 4px;
   font-size: 15px;
 }
+
+.mobile-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  /* iOS에서 완전 0px이면 무시되는 경우가 있어서 1px 유지 */
+}

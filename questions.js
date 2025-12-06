@@ -24,7 +24,7 @@ const QUESTIONS = [
   },
   {
     answer: "I doubt about it",
-    prefix: "I hope they will leave us doing as usual but I",
+    prefix: "I hope they will leave us doing as usual but",
     suffix: ".",
     meaning: "그럴 리가 없지… 🙄",
     translation: "이번에는 좀 조용했으면 좋겠는데… 그럴 리는 없지"

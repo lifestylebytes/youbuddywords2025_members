@@ -17,6 +17,7 @@ const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("score");
 const skipBtn = document.getElementById("skipBtn");
 const resetBtn = document.getElementById("resetBtn");
+const mobileInput = document.getElementById("mobileInput");
 
 // 상태값
 let questions = [];
@@ -55,7 +56,7 @@ function normaliseBase(str) {
   return (str || "")
     .toLowerCase()
     .replace(/[’‘]/g, "'")    // 따옴표 통일
-    .replace(/[^a-z\s]/g, "") // 알파벳 + 공백만 허용
+    .replace(/[^a-z\s;:'-]/g, "") // 알파벳 + 공백만 허용
     .trim()
     .replace(/\s+/g, " ");    // 여러 칸 → 한 칸
 }
@@ -314,7 +315,13 @@ function showResultPopup() {
 
   modal.classList.remove("hidden");
 }
-
+function focusMobileInput() {
+  if (!mobileInput) return;
+  // 일부 브라우저에서 에러 방지용 try
+  try {
+    mobileInput.focus();
+  } catch (e) {}
+}
 // -------------------- Reset --------------------
 
 function resetAll() {
@@ -343,6 +350,7 @@ function resetAll() {
   }
 
   setSentence(questions[0]);
+  focusMobileInput();
 }
 
 // -------------------- 키보드 입력 --------------------
@@ -386,27 +394,64 @@ function handleKey(e) {
     return;
   }
 
+
+
+
+// 페이지 처음 로드됐을 때 한 번 시도
+window.addEventListener("load", focusMobileInput);
+
+// 카드나 화면 아무 곳이나 탭하면 다시 포커스
+card.addEventListener("click", focusMobileInput);
+card.addEventListener("touchstart", focusMobileInput);
+
+
   // -------------------------
   // 🔥 모바일 대응 핵심 로직
   // -------------------------
 
-  // 1) PC — e.code가 존재하는 경우
-  if (code && code.startsWith("Key")) {
-    e.preventDefault();
-    typedRaw += code.slice(3).toLowerCase();
-    finished = false;
-    renderSlots();
-    return;
+ // 1) PC — 알파벳 + 특수문자 키 처리
+  if (code) {
+    // KeyA ~ KeyZ → 알파벳 처리
+    if (code.startsWith("Key")) {
+      e.preventDefault();
+      typedRaw += code.slice(3).toLowerCase();
+      finished = false;
+      renderSlots();
+      return;
+    }
+
+    // 특수문자 키 처리
+    const specialMap = {
+      "Semicolon": ";",
+      "Quote": "'",
+      "Minus": "-",
+      "Period": ".",
+      "Comma": ",",
+      "Slash": "/",
+      "BracketLeft": "[",
+      "BracketRight": "]"
+    };
+
+    const specialKey = code.replace("Key", "");
+    if (specialMap[specialKey]) {
+      e.preventDefault();
+      typedRaw += specialMap[specialKey];
+      finished = false;
+      renderSlots();
+      return;
+    }
   }
 
-  // 2) 모바일 — e.key로만 들어오는 경우
-  if (key.length === 1 && /[a-zA-Z]/.test(key)) {
+  // 2) 모바일 — 실제 입력되는 key 값 기준 처리
+  if (key.length === 1 && /[a-zA-Z;:'-]/.test(key)) {
     e.preventDefault();
     typedRaw += key.toLowerCase();
     finished = false;
     renderSlots();
     return;
   }
+
+
 
 }
 
@@ -416,6 +461,9 @@ function handleKey(e) {
 document.addEventListener("keydown", handleKey);
 skipBtn.addEventListener("click", revealAndNext);
 resetBtn.addEventListener("click", resetAll);
+
+card.addEventListener("click", focusMobileInput);
+card.addEventListener("touchstart", focusMobileInput);
 
 // 팝업 다시하기 버튼 (단 한 번만 등록)
 document.getElementById("retryBtn").addEventListener("click", () => {
