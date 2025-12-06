@@ -30,6 +30,7 @@ let totalSlots = 0;  // 실제 글자(공백 제외) 수
 let typedRaw = "";   // 사용자가 지금까지 친 문자열
 let finished = false;
 let currentAnswer = "";
+let wrongWords = [];
 
 // -------------------- 유틸 & 세션 문제 선택 --------------------
 
@@ -49,7 +50,7 @@ function pickSessionQuestions(limit = 10) {
   return copy.slice(0, realLimit);
 }
 
-// 문자열 정규화
+// 문자열 정규화 기본
 function normaliseBase(str) {
   return (str || "")
     .toLowerCase()
@@ -59,12 +60,12 @@ function normaliseBase(str) {
     .replace(/\s+/g, " ");    // 여러 칸 → 한 칸
 }
 
-// 공백 유지 버전
+// 공백 유지
 function normaliseWithSpace(str) {
   return normaliseBase(str);
 }
 
-// 공백 제거 버전 (띄어쓰기 없어도 정답 인정용)
+// 공백 제거 (띄어쓰기 없이 쳐도 정답 인정용)
 function normaliseWithoutSpace(str) {
   return normaliseBase(str).replace(/\s+/g, "");
 }
@@ -169,7 +170,20 @@ function setSentence(q) {
 
   prefixEl.textContent = q.prefix || "";
   suffixEl.textContent = q.suffix || "";
-  meaningEl.textContent = q.meaning || "";
+
+  // 예문 해석 + 뜻 : ~ 형태로 보여주기 (뜻은 밑에 + 보라색)
+  if (q.translation && q.meaning) {
+    meaningEl.innerHTML = `
+      <div class="translation-line">${q.translation}</div>
+      <div class="meaning-line">뜻 : ${q.meaning}</div>
+    `;
+  } else if (q.translation) {
+    meaningEl.innerHTML = `<div class="translation-line">${q.translation}</div>`;
+  } else if (q.meaning) {
+    meaningEl.innerHTML = `<div class="meaning-line">뜻 : ${q.meaning}</div>`;
+  } else {
+    meaningEl.textContent = "";
+  }
 
   setupPattern(q.answer);
   renderSlots();
@@ -185,13 +199,7 @@ function setSentence(q) {
 function nextQuestion() {
   currentIndex++;
   if (currentIndex >= questions.length) {
-    const total = questions.length;
-    finished = true;
-    progressEl.textContent = "Done";
-    statusEl.innerHTML =
-      `모든 문장을 다 쳤어요. 오늘의 You Buddy 세션 끝!<br>` +
-      `오늘의 점수는? 두구두구두구 ${total}개 중 ${correctCount}점!`;
-    statusEl.className = "status correct";
+    showResultPopup();
     return;
   }
   setSentence(questions[currentIndex]);
@@ -202,6 +210,11 @@ function revealAndNext() {
   if (finished) return;
   const q = questions[currentIndex];
   if (!q) return;
+
+  // 스킵도 복습 대상에 포함
+  if (!wrongWords.includes(q.answer)) {
+    wrongWords.push(q.answer);
+  }
 
   renderFullAnswer(q.answer);
   statusEl.innerHTML = `정답: <span class="status-answer">${q.answer}</span>`;
@@ -215,6 +228,8 @@ function revealAndNext() {
 function checkAnswer() {
   if (finished) return;
   if (!questions.length) return;
+
+  const q = questions[currentIndex];
 
   const userWithSpace = normaliseWithSpace(typedRaw);
   const userNoSpace = normaliseWithoutSpace(typedRaw);
@@ -233,9 +248,10 @@ function checkAnswer() {
     userWithSpace === correctWithSpace ||
     userNoSpace === correctNoSpace;
 
+  // ✅ 정답
   if (isCorrect) {
     correctCount++;
-    statusEl.textContent = "딩! 맞았습니다. 다음 문장으로 넘어갈게요.";
+    statusEl.textContent = "굳, 맞았습니다. 다음 문장으로 넘어갈게요.";
     statusEl.className = "status correct";
     card.classList.add("flash");
     scoreEl.textContent = `Score: ${correctCount}`;
@@ -245,29 +261,71 @@ function checkAnswer() {
       card.classList.remove("flash");
       nextQuestion();
     }, 450);
-  } else {
-    wrongCount++;
-    if (wrongCount >= 3) {
-      revealAndNext();
-      return;
-    }
-    statusEl.textContent = `음… 이건 아닌 것 같아요. (${wrongCount}/3)`;
-    statusEl.className = "status wrong";
-    card.classList.add("shake");
-    setTimeout(() => card.classList.remove("shake"), 250);
+    return;
   }
+
+  // ❌ 오답
+  wrongCount++;
+
+  if (!wrongWords.includes(q.answer)) {
+    wrongWords.push(q.answer);
+  }
+
+  if (wrongCount >= 3) {
+    revealAndNext();
+    return;
+  }
+
+  statusEl.textContent = `음… 이건 아닌 것 같아요. (${wrongCount}/3)`;
+  statusEl.className = "status wrong";
+  card.classList.add("shake");
+  setTimeout(() => card.classList.remove("shake"), 250);
+}
+
+// -------------------- 결과 팝업 --------------------
+
+function showResultPopup() {
+  const total = questions.length;
+  const modal = document.getElementById("resultModal");
+  const msg = document.getElementById("modalMessage");
+  const list = document.getElementById("reviewList");
+
+  msg.textContent = `🎉오늘의 ${total}개 랜덤 퀴즈 끝!🎉\n${total}개 중에 ${correctCount}개 맞추었습니다 :)`;
+
+  // 복습 리스트 구성
+  list.innerHTML = "";
+  const title = document.createElement("div");
+  title.className = "review-title";
+  title.textContent = "[복습할 단어]";
+  list.appendChild(title);
+  list.appendChild(document.createElement("br"));
+  
+  if (wrongWords.length > 0) {
+    wrongWords.forEach(w => {
+      const li = document.createElement("li");
+      li.textContent = w;
+      list.appendChild(li);
+    });
+  } else {
+    const li = document.createElement("li");
+    li.textContent = "💯 완벽합니다! 복습할 단어가 없어요 🎉";
+    list.appendChild(li);
+  }
+
+  modal.classList.remove("hidden");
 }
 
 // -------------------- Reset --------------------
 
 function resetAll() {
-  questions = pickSessionQuestions(10);
+  questions = pickSessionQuestions(2);
   currentIndex = 0;
   correctCount = 0;
   wrongCount = 0;
   finished = false;
   typedRaw = "";
   currentAnswer = "";
+  wrongWords = [];
 
   statusEl.textContent = "";
   statusEl.className = "status";
@@ -321,8 +379,7 @@ function handleKey(e) {
   // 지금까지 입력한 글자 수(공백 제외)
   const lettersCount = typedRaw.replace(/\s/g, "").length;
   if (lettersCount >= totalSlots) {
-    // 슬롯 초과되면 더 못 치게
-    return;
+    return; // 슬롯 초과되면 더 못 치게
   }
 
   // 스페이스
@@ -334,8 +391,7 @@ function handleKey(e) {
     return;
   }
 
-  // ✅ 한글/영문 상관없이 "키보드 물리 위치" 기준으로 알파벳 처리
-  // 예: code === "KeyA" → 'a'
+  // 한글/영문 상관없이 "키보드 물리 위치" 기준으로 알파벳 처리
   if (code && code.startsWith("Key")) {
     e.preventDefault();
     const letter = code.slice(3).toLowerCase(); // A,B,C → a,b,c
@@ -350,6 +406,12 @@ function handleKey(e) {
 document.addEventListener("keydown", handleKey);
 skipBtn.addEventListener("click", revealAndNext);
 resetBtn.addEventListener("click", resetAll);
+
+// 팝업 다시하기 버튼 (단 한 번만 등록)
+document.getElementById("retryBtn").addEventListener("click", () => {
+  document.getElementById("resultModal").classList.add("hidden");
+  resetAll();
+});
 
 // 시작
 resetAll();

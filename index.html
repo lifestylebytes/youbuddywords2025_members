@@ -69,8 +69,34 @@
     </div>
   </div>
 
+  <!-- 팝업(모달) -->
+  <div id="resultModal" class="modal hidden">
+    <div class="modal-content">
+
+      <div id="modalMessage" class="modal-message"></div>
+
+      <ul id="reviewList" class="review-list"></ul>
+
+      <div class="modal-buttons">
+        <button id="retryBtn" class="retry-btn">🔄 다시하기</button>
+
+        <a 
+          href="https://apple-libra-6af.notion.site/2025buddywords?v=2ab1fc05de1e80f3a22e000c06858e59"
+          target="_blank"
+          class="notion-btn"
+        >
+          📘 유버디 단어장 바로가기
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
   <!-- 순서 중요: 데이터 → 로직 -->
   <script src="questions.js"></script>
   <script src="app.js"></script>
 </body>
+
+
 </html>

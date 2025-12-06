@@ -207,7 +207,7 @@ body {
 
 
 .char-slot.space-slot {
-  margin-right: 0.6ch;
+  margin-right: 0.1ch;
 }
 
 
@@ -392,4 +392,119 @@ body {
 /* 정답 텍스트를 슬롯과 동일한 폰트로 보여주기 */
 .status-answer {
   font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.translation-line {
+  margin-bottom: 6px;      /* 뜻이랑 약간 띄우기 */
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.meaning-line {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #7a4fff;          /* 보라색 */
+  font-weight: 500;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 360px;
+  padding: 28px 22px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.modal-message {
+  font-size: 17px;
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.review-list {
+  text-align: left;
+  margin: 0 auto 20px auto;
+  padding-left: 10px;
+  max-width: 260px;
+  font-size: 15px;
+  color: #333;
+}
+
+.review-list li {
+  margin-bottom: 6px;
+}
+
+.retry-btn {
+  background: #7a4fff;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.retry-btn,
+.notion-btn {
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+/* 다시하기 버튼 */
+.retry-btn {
+  background: #6a4dff;
+  color: white;
+  border: none;
+}
+.retry-btn:hover {
+  background: #593ee6;
+}
+
+/* 유버디 단어장 링크 버튼 */
+.notion-btn {
+  background: white;
+  color: #6a4dff;
+  border: 2px solid #6a4dff;
+  text-decoration: none;
+}
+.notion-btn:hover {
+  background: #f2eeff;
+}
+
+.review-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 15px;
 }
