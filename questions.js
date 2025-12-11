@@ -203,5 +203,19 @@ const QUESTIONS = [
     suffix: "",
     meaning: "실질적인 변화를 만들다 / 눈에 띄는 개선을 만들다",
     translation: "실제 변화를 만드는 해결책이 필요해."
+  },
+  {
+    answer: "dialed in",
+    prefix: "Let’s get",
+    suffix: "before we proceed.",
+    meaning: "(사람) 컨디션 좋다 / (상황) 작업이 정교하게 맞춰진",
+    translation: "진행하기 전에 컨디션/세팅을 제대로 맞추자."
+  },
+  {
+    answer: "dial down",
+    prefix: "We may need to",
+    suffix: "the scope.",
+    meaning: "강도·속도·레벨을 낮추다 / 조절해서 줄이다",
+    translation: "범위를 좀 줄여야 할 것 같아요."
   }
 ];
