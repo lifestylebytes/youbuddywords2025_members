@@ -114,7 +114,7 @@ const QUESTIONS = [
     translation: "이 문제 해결 관련해서 간단히 얘기 나눴어요."
   },
   {
-    answer: "sign off",
+    answer: "signing off",
     prefix: "I’m",
     suffix: "as well",
     meaning: "로그아웃 할게요",
@@ -212,10 +212,38 @@ const QUESTIONS = [
     translation: "진행하기 전에 컨디션/세팅을 제대로 맞추자."
   },
   {
+    answer: "hunch",
+    prefix: "I have a",
+    suffix: "that the client might change the request.",
+    meaning: "직감, 촉, 느낌",
+    translation: "느낌상 클라이언트가 요구 바꿀 것 같다"
+  },
+  {
     answer: "dial down",
     prefix: "We may need to",
     suffix: "the scope.",
     meaning: "강도·속도·레벨을 낮추다 / 조절해서 줄이다",
     translation: "범위를 좀 줄여야 할 것 같아요."
+  },
+  {
+    answer: "rumor mill",
+    prefix: "The",
+    suffix: "says the schedule might get pushed.",
+    meaning: "정체불명의 소문, 가십",
+    translation: "소문에 따르면 일정이 미뤄질 수도 있대."
+  },
+  {
+    answer: "soft commit",
+    prefix: "This is a",
+    suffix: "for now,  I’ll confirm once I have more clarity.",
+    meaning: "임시 확정",
+    translation: "지금은 임시 확정이고, 좀 더 명확해지면 확답 드릴게요"
+  },
+  {
+    answer: "pencil it in",
+    prefix: "Let’s",
+    suffix: "for Thursday and confirm later.",
+    meaning: "일단 임시로 잡아두다",
+    translation: "목요일로 일단 잡아두고 나중에 확정하죠"
   }
 ];
