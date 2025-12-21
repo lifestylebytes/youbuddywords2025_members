@@ -234,7 +234,7 @@ body {
 
 
 .char-slot.space-slot {
-  width: 0.1ch;
+  width: 0.5ch;
   min-width: 0.15ch;
   margin: 0 0.05ch;
 }
@@ -372,7 +372,7 @@ body {
 
 .inline-suffix {
   display: inline-block !important;
-  margin-left: 6px;         /* 답칸과 약간만 띄우기 */
+  margin-left: 12px;         /* 답칸과 약간만 띄우기 */
   font-size: 22px;
   vertical-align: middle;
 }
