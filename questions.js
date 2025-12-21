@@ -245,5 +245,47 @@ const QUESTIONS = [
     suffix: "for Thursday and confirm later.",
     meaning: "일단 임시로 잡아두다",
     translation: "목요일로 일단 잡아두고 나중에 확정하죠"
+  },
+  {
+    answer: "off track",
+    prefix: "The project is",
+    suffix: "due to unexpected delays.",
+    meaning: "계획·일정·목표에서 벗어난 상태",
+    translation: "예상치 못한 지연 때문에 프로젝트가 일정에서 벗어났어요."
+  },
+  {
+    answer: "take ownership",
+    prefix: "I can",
+    suffix: "of this and follow it through.",
+    meaning: "주도적으로 맡다 / 책임지고 끝까지 챙기다",
+    translation: "제가 이건 맡아서 끝까지 챙길게요."
+  },
+  {
+    answer: "in flux",
+    prefix: "The timeline is still",
+    suffix: ", so nothing is confirmed yet.",
+    meaning: "아직 확정되지 않은",
+    translation: "일정이 아직 계속 변동 중이라 확정된 건 없어요."
+  },
+  {
+    answer: "time-bound",
+    prefix: "This task is",
+    suffix: ", so we can’t delay it.",
+    meaning: "명확한 기한이 정해진",
+    translation: "이 업무는 기한이 정해져 있어서 미룰 수 없어요."
+  },
+  {
+    answer: "ducks in a row",
+    prefix: "Let’s get our",
+    suffix: "before the meeting.",
+    meaning: "사전에 준비를 다 끝내다",
+    translation: "미팅 전에 준비를 다 정리해두죠."
+  },
+  {
+    answer: "corporate jargon",
+    prefix: "Let’s avoid too much",
+    suffix: "in this email.",
+    meaning: "회사에서만 쓰는 전문 용어",
+    translation: "이 메일에서는 회사식 용어를 너무 많이 쓰지 맙시다."
   }
 ];
