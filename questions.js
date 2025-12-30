@@ -24,7 +24,7 @@ const QUESTIONS = [
   },
   {
     answer: "I doubt about it",
-    prefix: "I hope they will leave us doing as usual but",
+    prefix: "I hope they’ll just let us do things as usual, but",
     suffix: ".",
     meaning: "그럴 리가 없지… 🙄",
     translation: "이번에는 좀 조용했으면 좋겠는데… 그럴 리는 없지"
@@ -191,7 +191,7 @@ const QUESTIONS = [
     translation: "지금 진행 중인 작업 몇 개만 마무리하고 갈게요."
   },
   {
-    answer: "table for now",
+    answer: "table it for now",
     prefix: "We can revisit it later, but let’s",
     suffix: ".",
     meaning: "보류하다",
@@ -287,5 +287,68 @@ const QUESTIONS = [
     suffix: "in this email.",
     meaning: "회사에서만 쓰는 전문 용어",
     translation: "이 메일에서는 회사식 용어를 너무 많이 쓰지 맙시다."
+  },
+  {
+    answer: "at face value",
+    prefix: "Let’s not take this feedback",
+    suffix: ".",
+    meaning: "겉으로 보이는 대로 / 깊이 따지지 않고",
+    translation: "이 피드백을 그대로만 받아들이지는 맙시다."
+  },
+  {
+    answer: "raise a red flag",
+    prefix: "We can’t start until we get approval, which",
+    suffix: "for the timeline.",
+    meaning: "문제 가능성을 알리다 / 경고 신호를 보내다",
+    translation: "승인이 나와야 시작할 수 있어서 일정에 문제가 생길 수 있어요."
+  },
+  {
+    answer: "iron out",
+    prefix: "We need to",
+    suffix: "a few details first.",
+    meaning: "세부 문제를 해결하다",
+    translation: "몇 가지 세부사항을 먼저 정리해야 해요."
+  },
+  {
+    answer: "on the back burner",
+    prefix: "We’ll keep this",
+    suffix: "for now.",
+    meaning: "우선순위를 낮춰두다 / 당장은 안 하는 상태로 두다",
+    translation: "이건 당분간 우선순위 낮춰두죠."
+  },
+  {
+    answer: "ahead of the curve",
+    prefix: "This approach puts us",
+    suffix: ".",
+    meaning: "한발 앞선",
+    translation: "이 접근법 덕분에 우리가 한발 앞서가요."
+  },
+  {
+    answer: "in the pipeline",
+    prefix: "We have a few updates",
+    suffix: "",
+    meaning: "이미 계획돼 있거나 진행 예정인",
+    translation: "곧 나올 업데이트들이 몇 개 있어요"
+  },
+  {
+    answer: "bumping up",
+    prefix: "I’m",
+    suffix: "due to the deadline.",
+    meaning: "중요도를 높이다 / 일정 앞당기다",
+    translation: "마감 때문에 이걸 우선순위로 올릴게요."
+  },
+  {
+    answer: "play it by ear",
+    prefix: "Let’s",
+    suffix: "and adjust as needed.",
+    meaning: "상황 보면서 결정하다",
+    translation: "상황 보면서 필요하면 조정하죠."
+  },
+  {
+    answer: "put a pin in it",
+    prefix: "We need to",
+    suffix: "and revisit it tomorrow.",
+    meaning: "일단 멈추고 나중에 다시 다루다",
+    translation: "이건 일단 여기까지 하고 나중에 다시 보죠."
   }
 ];
